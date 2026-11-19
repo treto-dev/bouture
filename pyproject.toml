@@ -1,0 +1,30 @@
+[project]
+name = "bouture"
+version = "0.1.0"
+description = "Crée un nouveau site à partir de Sites Conformes, comme on bouture une plante."
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["django>=5.2", "questionary>=2.1"]
+
+[project.scripts]
+bouture = "bouture.cli:main"
+
+[dependency-groups]
+# The generated project is checked against the real package.
+dev = ["pytest>=8", "sites-conformes"]
+
+[tool.uv.sources]
+# ponytail: pinned to the commit carrying the SQLite migration fix; back to PyPI once 4.4.0 is released with it.
+sites-conformes = { git = "https://github.com/numerique-gouv/sites-conformes", rev = "34bc99c887f15ff949e5bc16d8b8e020b7c00e2e" }
+
+[build-system]
+requires = ["uv_build>=0.8,<0.14"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
